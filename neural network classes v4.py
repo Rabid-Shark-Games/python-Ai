@@ -416,8 +416,43 @@ class connection:
     def __str__(self):
         return self.__repr__()
 
-    def __mul__(self, other):
-        pass
+    def search(self, other, temp, tempin):
+        compare = [[[], []], [[], []]]
+        sim = [[], []]
+        compare[0][0] = self.startTrue.search(temp, self, -1)
+        compare[0][1] = self.endTrue.search(temp, self, 1)
+        compare[1][0] = other.startTrue.search(tempin, other, -1)
+        compare[1][1] = other.endTrue.search(tempin, other, 1)
+
+        for x in range(0, len(compare[0][0])):
+            for x2 in range(0, len(compare[0][0])):
+                if compare[0][0][x] == compare[0][0][x2]:
+                    del compare[0][0][x2]
+        for x in range(0, len(compare[0][1])):
+            for x2 in range(0, len(compare[0][1])):
+                if compare[0][1][x] == compare[0][1][x2]:
+                    del compare[0][1][x2]
+        for x in range(0, len(compare[1][0])):
+            for x2 in range(0, len(compare[1][0])):
+                if compare[1][0][x] == compare[1][0][x2]:
+                    del compare[1][0][x2]
+        for x in range(0, len(compare[1][1])):
+            for x2 in range(0, len(compare[1][1])):
+                if compare[1][1][x] == compare[1][1][x2]:
+                    del compare[1][1][x2]
+        for x in range(0, len(compare[0][0])):
+            for x2 in range(0, len(compare[1][0])):
+                if compare[0][0][x] == compare[1][0][x2]:
+                    sim[0].append(compare[0][0][x])
+                    del compare[0][0][x]
+                    del compare[1][0][x2]
+        for x in range(0, len(compare[0][1])):
+            for x2 in range(0, len(compare[1][1])):
+                if compare[0][1][x] == compare[1][1][x2]:
+                    sim[1].append(compare[0][1][x])
+                    del compare[0][1][x]
+                    del compare[1][1][x2]
+        return (2 * len(sim)) / (2 * len(sim) + (len(compare[0][0]) + len(compare[1][0] + len(compare[0][1]) + len(compare[1][1]))))
 
 sys = system(2)
 sys.createNeuron(1, 0, 0)
@@ -434,6 +469,7 @@ sys.createConnection(4, 1, 5, 6)
 
 #0->0->0
 #I  N  O
+#x2
 
 for x in range(0, 21):
     sys.Input([[x], [x]])
