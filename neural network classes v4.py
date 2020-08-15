@@ -8,6 +8,8 @@ class system:
     generation = 0
     seed = 1
     acceptancepercent = 0.75
+    connectionAcceptancePercent = 0.9
+    waitlist = []
 
     #[net]                  [layer]  [0 / 1]                      [pointer]
     #(controlls everything) (orders) (0 - neuron, 1 - connection) (way to see what object)
@@ -122,7 +124,7 @@ class system:
                         break
             
             #combine parents
-            temp[x] = tempin[x]
+            temp[x] = tempin[parents[0]]
             passed = 0
 
             if parentsnum > 1:
@@ -145,7 +147,7 @@ class system:
                             passed = 0
                             for x5 in range(0, len(temp[x])):
                                 for x6 in range(0, len(temp[x][x5][1])):
-                                    if tempin[parents[x2]][x3][1][x4] - temp[x][x5][1][x6] == 1:
+                                    if temp[x][x5][1][x6] == 1:
                                         temp[x][x5][1][x6] * tempin[parents[x2]][x3][1][x4]
                                         passed = 1
                             if passed == 0:
