@@ -1,5 +1,6 @@
 from random import seed
 from random import randint
+from random import random
 
 seed(1)
 
@@ -10,6 +11,8 @@ class system:
     acceptancepercent = 0.75
     connectionAcceptancePercent = 0.9
     waitlist = []
+    neuronChance = 0.15
+    connectionChance = 0.3
 
     #[net]                  [layer]  [0 / 1]                      [pointer]
     #(controlls everything) (orders) (0 - neuron, 1 - connection) (way to see what object)
@@ -99,6 +102,21 @@ class system:
                 else:
                     return self.system[net][layer][0][index].output
         return output
+    
+    def checkName(self, net = "all"):
+        name = 0
+        if net == "all":
+            temp = self.system
+        elif type(net) == "int":
+            temp = self.system[net]
+        else:
+            temp = net
+        for x in range(0, len(temp)):
+            for x2 in range(0, len(temp[x])):
+                for x3 in range(0, len(temp[x][x2][0])):
+                    if temp[x][x2][0][x3].name == name:
+                        name += 1
+        return name
 
     def mutate(self, fitness, strength = 1, parentsnum = 1, list = 'default'):
         temp = []
@@ -152,6 +170,22 @@ class system:
                                         passed = 1
                             if passed == 0:
                                 temp[x][x3][x4].append()
+            random = rand.random()
+            if random <= self.neuronChance * strength:
+                randLayer = rand.randint(0, len(temp[x]))
+                if randLayer == 0:
+                    temp[x].insert(0, [[], []])
+                elif randLayer == len(temp[x]):
+                    temp[x].insert(len(temp[x]), [[], []])
+                randLayer = rand.randint(1, len(temp) - 1)
+                randName = self.checkName(temp[x])
+                tempNeuron = neuron(randint(0, 3), 0, randName, self)
+                temp[x][randLayer][0].append(tempNeuron)
+                StartLayer = randint(1, randLayer - 1)
+                endLayer = randint(randLayer + 1, len(temp[x]))
+                tempConnection1 = connection(temp[x][StartLayer][rand.randint(0, len(startLayer - 1))], tempNeuron.name, rand.random(), self, rand.randint(0, 100))
+                temp[x][StartLayer][1].append(tempConnection1)
+                tempConnection2 = connection(tempNeuron.name, )
                         
                             
 
@@ -384,20 +418,10 @@ class connection:
         self.weight = weight
         self.sys = sys
         self.name = name
-
-        for x in range(0, len(sys.system)):
-            #net
-            for x2 in range(0, len(sys.system[x])):
-                #layer
-                for x3 in range(0, len(sys.system[x][x2][0])):
-                    #index
-                    if self.sys.system[x][x2][0][x3].name == self.start:
-                        self.startTrue = self.system[x][x2][0][x3]
-                    elif self.sys.system[x][x2][0][x3].name == self.end:
-                        self.endTrue = self.system[x][x2][0][x3]
-    
-    def check(self):
-        if not (self.startTrue.name == self.start and self.endTrue.name == self.end):
+        if type(self.start) != 'int':
+            self.useTrue = False
+        else:
+            self.useTrue = True
             for x in range(0, len(sys.system)):
                 #net
                 for x2 in range(0, len(sys.system[x])):
@@ -405,11 +429,27 @@ class connection:
                     for x3 in range(0, len(sys.system[x][x2][0])):
                         #index
                         if self.sys.system[x][x2][0][x3].name == self.start:
-                            self.startTrue = self.sys.system[x][x2][0][x3]
+                            self.startTrue = self.system[x][x2][0][x3]
                         elif self.sys.system[x][x2][0][x3].name == self.end:
-                            self.endTrue = self.sys.system[x][x2][0][x3]
+                            self.endTrue = self.system[x][x2][0][x3]
+    
+    def check(self):
+        if self.useTrue == True:
+            if not (self.startTrue.name == self.start and self.endTrue.name == self.end):
+                for x in range(0, len(sys.system)):
+                    #net
+                    for x2 in range(0, len(sys.system[x])):
+                        #layer
+                        for x3 in range(0, len(sys.system[x][x2][0])):
+                            #index
+                            if self.sys.system[x][x2][0][x3].name == self.start:
+                                self.startTrue = self.sys.system[x][x2][0][x3]
+                            elif self.sys.system[x][x2][0][x3].name == self.end:
+                                self.endTrue = self.sys.system[x][x2][0][x3]
         
-        self.endTrue.inputs.append(self.weight * self.startTrue.output)
+            self.endTrue.inputs.append(self.weight * self.startTrue.output)
+        else:
+            self.end.inputs.append(self.weight * self.startTrue.output)
                             
     
     def __repr__(self):
@@ -417,6 +457,9 @@ class connection:
 
     def __str__(self):
         return self.__repr__()
+
+    def __mul__(self, other):
+        self.weight == (self.weight + other.weight) / 2 
 
     def search(self, other, temp, tempin):
         compare = [[[], []], [[], []]]
