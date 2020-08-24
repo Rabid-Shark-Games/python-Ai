@@ -173,22 +173,26 @@ class system:
             if rand <= self.neuronChance * strength:
                 randLayer = randint(0, len(temp[x]))
                 if randLayer == 0:
-                    temp[x].insert(0, [[], []])
-                elif randLayer == len(temp[x]):
+                    temp[x].insert(1, [[], []])
+                    randLayer = 1
+                elif randLayer == len(temp[x]) - 1:
                     temp[x].insert(len(temp[x]), [[], []])
-                randLayer = randint(1, len(temp[x]) - 1)
+                    randLayer = len(temp[x]) - 1
                 randName = self.checkName(temp[x])
                 tempNeuron = neuron(2, 0, randName, self)
                 temp[x][randLayer][0].append(tempNeuron)
-                startLayer = randint(1, randLayer - 1)
+                if 1 == randLayer - 1 or randLayer - 1 < 1:
+                    startLayer = 1
+                else:
+                    startLayer = randint(1, randLayer - 1)
                 endLayer = None
                 if randLayer + 1 == len(temp[x]) - 1:
                     endLayer = randLayer + 1
                 else:
                     endLayer = randint(randLayer + 1, len(temp[x]) - 1)
-                tempConnection1 = connection(temp[x][startLayer][1][randint(0, len(temp[x][startLayer]) - 1)], tempNeuron, random(), self, randint(0, 100))
+                tempConnection1 = connection(temp[x][startLayer][0][randint(0, len(temp[x][startLayer][0]) - 1)], tempNeuron, random(), self, randint(0, 100))
                 temp[x][startLayer][1].append(tempConnection1)
-                tempConnection2 = connection(tempNeuron, temp[x][endLayer][1][randint(0, len(temp[x][startLayer]) - 1)], random(), self, randint(0, 100))
+                tempConnection2 = connection(tempNeuron, temp[x][endLayer][0][randint(0, len(temp[x][endLayer][0]) - 1)], random(), self, randint(0, 100))
                 temp[x][endLayer][1].append(tempConnection2)
             elif rand <= self.connectionChance * strength:
             #add connection
@@ -425,6 +429,7 @@ class neuron:
                 self.output = 1
             else:
                 self.output = 0
+        print(self.output)
 
         if self.IO == 1:
             print(self.output)
@@ -539,7 +544,7 @@ sys.createConnection(4, 1, 5, 6)
 #I  N  O
 #x2
 
-sys.system[0][0][0][0] / sys.system[0][0][0][1]
+#sys.system[0][0][0][0] / sys.system[0][0][1][0]
 
 for x in range(0, 21):
     sys.Input([[x], [x]])
@@ -547,6 +552,8 @@ for x in range(0, 21):
     if sys.Output() == [[15.0], [15.0]]:
         print('success')
         break
+    else:
+        print(sys.Output())
 sys.mutate([1, 0], 10) 
 #sys.mutate([1, 1])
 for x in range(0, 21):
@@ -555,3 +562,6 @@ for x in range(0, 21):
     if sys.Output() == [[15.0], [15.0]]:
         print('success')
         break
+    else:
+        print(sys.Output())
+print(sys.system)
