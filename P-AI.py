@@ -1,9 +1,25 @@
+import random
+
+
+class layer:
+    pass
+
+
+
 class controller:
     layers = []
+    rng = random.Random()
     interation = 0
 
-    def __init__(self):
-        pass
+    def __init__(self, layertype=layer, layersize=[10, 20, 15, 10], seed=0):
+        #initialize random number generator
+        self.rng.seed(seed)
+
+        for layer in range(0, len(layersize)):
+            if not layer == len(layersize) - 2:
+                layertype.generate(seed=self.rng.random(), inp=layersize[layer], out=layersize[layer + 1])
+            else:
+                layertype.generate(seed=self.rng.random(), inp=layersize[layer], out=layersize[-1])
 
     def check(self, input):
         output = []
@@ -51,6 +67,31 @@ class layer:
 
         return output
 
+    @classmethod
+    def generate(cls, generator="basic", seed=0, inp=10, out=10):
+        
+        #ensure that inp and out are both integers
+        inp = int(inp)
+        out = int(out)
+
+        #create the random for generation
+        rng = random.Random()
+        rng.seed(seed)
+
+        #create the output class
+        temp = cls()
+
+        #initiate the weights
+        for neuron in range(0, inp):
+            temp.weights.append([])
+            for _weight in range(0, out):
+                if generator == "basic":
+                    temp.weights[neuron].append(rng.uniform(-1, 1))
+
+        #return the temp object
+        return temp
+            
+
 
 test = layer() 
 test.weights = [[2]]
@@ -61,8 +102,7 @@ test1.weights = [[1, 0.5]]
 test2 = layer()
 test2.weights = [[0.25], [3]]
 
-control = controller()
-control.layers = [test, test1, test2]
+control = controller(test, test1, test2)
 
 print()
 print(control.check([2.0]))
