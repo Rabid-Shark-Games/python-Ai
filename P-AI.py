@@ -5,7 +5,7 @@ class Layer:
     weights = [] #input, output
 
     def __init__(self):
-        pass
+        self.weights = []
 
     def check(self, inputs):
 
