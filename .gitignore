@@ -1,0 +1,5 @@
+c/.sconsign.dblite
+
+*.o
+
+c/main
