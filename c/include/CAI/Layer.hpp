@@ -54,7 +54,7 @@ namespace CAI {
 
                 return output;
             }
-        private:
+        // private:
             std::mt19937 random;
             std::vector<std::vector<float>> weights;
         };

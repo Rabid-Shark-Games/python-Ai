@@ -10,7 +10,7 @@ namespace CAI {
     namespace Controller {
         class Controller {
         public:
-            inline Controller(std::vector<Layer::Layer> layers = {}, float seed = 0) {
+            inline Controller(std::vector<Layer::Layer> layers, float seed = 0) {
                 random.seed(seed);
 
                 if (layers.size() == 0) {
@@ -22,7 +22,7 @@ namespace CAI {
                 }
             }
 
-            inline Controller(std::vector<float> layers = {}, float seed = 0) {
+            inline Controller(std::vector<float> layers, float seed = 0) {
                 random.seed(seed);
 
                 if (layers.size() == 0) {
@@ -37,7 +37,7 @@ namespace CAI {
                 }
             }
 
-            inline Controller(std::vector<int> layers = {}, float seed = 0) {
+            inline Controller(std::vector<int> layers, float seed = 0) {
                 Controller(layers, seed);
             }
 
@@ -58,7 +58,7 @@ namespace CAI {
                     }
                 }
             }
-        private:
+        // private:
             std::vector<Layer::Layer> layers;
             std::mt19937 random;
         };

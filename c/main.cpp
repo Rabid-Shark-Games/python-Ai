@@ -1,7 +1,16 @@
 #include <iostream>
+#include <vector>
 
 #include <CAI/CAI.hpp>
 
 int main() {
-    std::cout << "Test!" << std::endl;
+    std::vector<int> data = {1,2,2,1};
+    CAI::Controller::Controller test(data);
+    for (auto x : test.layers) {
+        for (auto y : x.weights) {
+            for (auto z : y) {
+                std::cout << z << std::endl;
+            }
+        }
+    }
 }

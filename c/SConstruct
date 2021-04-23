@@ -1,6 +1,7 @@
 env = Environment()
 
 env.Append(CPPPATH=['include'])
+env.Append(CCFLAGS = '-g')
 
 env.Tool('compilation_db')
 env.CompilationDatabase()
