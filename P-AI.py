@@ -1,4 +1,4 @@
-import random
+import random, copy
 
 
 class Layer:
@@ -93,6 +93,23 @@ class Controller:
 
            #debug info
            print(output)
+
+class System:
+    controllers = []
+    cycle = {}
+
+    def __init__(self):
+        pass
+
+    def addController(self, controller=Controller(), number=1):
+        if type(controller) == type:
+            for _x in range(0, number):
+                self.controllers.append(controller())
+        elif issubclass(Controller, type(controller)):
+            for _x in range(0, number):
+                self.controllers.append(copy.deepcopy(controller))
+
+
 
 test = Controller(layers=[1, 2, 2, 1])
 for x in test.layers:
