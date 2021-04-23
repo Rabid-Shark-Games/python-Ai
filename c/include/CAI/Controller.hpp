@@ -38,8 +38,18 @@ namespace CAI {
             }
 
             Controller(std::vector<int> layers, float seed = 0) {
-                std::vector<float> newLayers(layers.begin(), layers.end());
-                Controller(newLayers, seed);
+                random.seed(seed);
+
+                if (layers.size() == 0) {
+                    return;
+                }
+
+                std::uniform_int_distribution<uint32_t> uint(0,1);
+
+                for (int layer = 0; layer < layers.size(); layer++) {
+                    Layer::Layer layer_add(uint(random), layers[layer], layers[layer+1]);
+                    this->layers.push_back(layer_add);
+                }
             }
 
             std::vector<float> check(std::vector<float> input) {
