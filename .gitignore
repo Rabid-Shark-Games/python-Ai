@@ -7,3 +7,6 @@ c/main
 c/compile_commands.json
 
 c/.cache
+
+Python/__pycache__/
+Test.py
