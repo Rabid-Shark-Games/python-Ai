@@ -5,3 +5,5 @@ c/.sconsign.dblite
 c/main
 
 c/compile_commands.json
+
+c/.cache

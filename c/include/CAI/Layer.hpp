@@ -15,7 +15,7 @@ namespace CAI {
 
         class Layer {
         public:
-            inline Layer(
+            Layer(
                 float seed,
                 int inp = 10,
                 int out = 10,
@@ -34,7 +34,7 @@ namespace CAI {
                 }
             }
 
-            inline std::vector<float> check(std::vector<float> inputs) {
+            std::vector<float> check(std::vector<float> inputs) {
 
                 if (inputs.size() != weights.size()) {
                     throw std::runtime_error("Wrong number of inputs");
