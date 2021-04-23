@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "CAI.hpp"
+#include <CAI/CAI.hpp>
 
 int main() {
     std::cout << "Test!" << std::endl;

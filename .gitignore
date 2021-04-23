@@ -3,3 +3,5 @@ c/.sconsign.dblite
 *.o
 
 c/main
+
+c/compile_commands.json

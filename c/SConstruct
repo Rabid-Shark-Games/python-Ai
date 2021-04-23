@@ -1,1 +1,8 @@
-Program("main.cpp")
+env = Environment()
+
+env.Append(CPPPATH=['include'])
+
+env.Tool('compilation_db')
+env.CompilationDatabase()
+
+env.Program("main.cpp")
