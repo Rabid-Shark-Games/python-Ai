@@ -1,12 +1,12 @@
-c/.sconsign.dblite
+cpp/.sconsign.dblite
 
 *.o
 
-c/main
+cpp/main
 
-c/compile_commands.json
+cpp/compile_commands.json
 
-c/.cache
+cpp/.cache
 
 Python/__pycache__/
 Test.py
