@@ -9,7 +9,21 @@ class Controller:
     rng = random.Random()
     interation = 0
 
-    @Decorators.inputlogger({"layertype": (Layer.Layer, Layer.Layer()), "layers": (list), "seed": (None, int, float, str, bytes, bytearray)})
+    @Decorators.inputlogger({
+        "layertype": (
+            Layer.Layer,
+            Layer.Layer()
+        ),
+        "layers": (list),
+        "seed": (
+            None,
+            int,
+            float,
+            str,
+            bytes,
+            bytearray
+        )
+    })
     def __init__(self, layertype=Layer.Layer, layers=[], seed=None):
         #initialize random number generator
         self.rng.seed(seed)
@@ -24,7 +38,9 @@ class Controller:
             for layer in range(0, len(layers) - 1):
                 self.layers.append(layertype.generate(seed=self.rng.random(), inp=layers[layer], out=layers[layer + 1]))
 
-    @Decorators.inputlogger({"input": (list)})
+    @Decorators.inputlogger({
+        "input": (list)
+    })
     def check(self, input):
         output = []
 
@@ -33,7 +49,7 @@ class Controller:
             #first layer
             if layer == 0:
                 output = self.layers[layer].check(input)
-            
+
             #middle layers
             elif layer != len(self.layers) - 1:
                 output = self.layers[layer].check(output)
