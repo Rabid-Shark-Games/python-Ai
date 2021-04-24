@@ -1,2 +1,12 @@
+cpp/.sconsign.dblite
+
+*.o
+
+cpp/main
+
+cpp/compile_commands.json
+
+cpp/.cache
+
 Python/__pycache__/
 Test.py
