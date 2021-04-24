@@ -1,4 +1,3 @@
-from _typeshed import NoneType
 import random
 import Python.P_AI_Layer as Layer
 import Python.P_AI_Decorators as Decorators
@@ -10,7 +9,7 @@ class Controller:
     rng = random.Random()
     interation = 0
 
-    @Decorators.inputlogger({"layertype": (Layer.Layer, Layer.Layer()), "layers": (list), "seed": (NoneType, int, float, str, bytes, bytearray)})
+    @Decorators.inputlogger({"layertype": (Layer.Layer, Layer.Layer()), "layers": (list), "seed": (None, int, float, str, bytes, bytearray)})
     def __init__(self, layertype=Layer.Layer, layers=[], seed=None):
         #initialize random number generator
         self.rng.seed(seed)

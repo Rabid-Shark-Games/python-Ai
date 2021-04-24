@@ -1,4 +1,3 @@
-from _typeshed import NoneType
 import random
 import Python.P_AI_Decorators as Decorators
 
@@ -30,7 +29,7 @@ class Layer:
         return output
 
     @classmethod
-    @Decorators.inputlogger({"generator": (str), "seed": (NoneType, int, float, str, bytes, bytearray), "inp": (int, float, str), "out": (int, float, str)})
+    @Decorators.inputlogger({"generator": (str), "seed": (None, int, float, str, bytes, bytearray), "inp": (int, float, str), "out": (int, float, str)})
     def generate(cls, generator="basic", seed=0, inp=10, out=10):
         
         #ensure that inp and out are both integers
