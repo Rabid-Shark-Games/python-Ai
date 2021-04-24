@@ -11,6 +11,10 @@ namespace CAI {
             }
         }
 
+        void check(std::vector<Controller> controllers={}, std::vector<float> input={}) {
+            util::assert(false, "Uncomplete code");
+        }
+
         std::vector<Controller> controllers;
     };
 }

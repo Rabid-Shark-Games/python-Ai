@@ -2,8 +2,9 @@
 
 #include <iostream>
 #include <random>
-#include <stdexcept>
 #include <vector>
+
+#include "util/util.hpp"
 
 namespace CAI {
     namespace LayerGenerator {
@@ -35,9 +36,7 @@ namespace CAI {
 
         std::vector<float> check(std::vector<float> inputs) {
 
-            if (inputs.size() != weights.size()) {
-                throw std::runtime_error("Wrong number of inputs");
-            }
+            util::assert(inputs.size() == weights.size(), "Inputs and Weights need the same size");
 
             std::vector<float> output;
             for (int _x = 0; _x < weights[0].size(); _x++) {
