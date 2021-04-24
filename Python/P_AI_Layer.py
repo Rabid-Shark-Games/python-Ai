@@ -10,12 +10,14 @@ class Layer:
     def __init__(self):
         self.weights = []
 
-    @Decorators.inputlogger({"inputs": (list)})
+    @Decorators.inputlogger({
+        "inputs": (list)
+    })
     def check(self, inputs):
 
         #assert that formatting matches
         assert len(inputs) == len(self.weights), "input in controller " + "TODO" + " at layer " + "TODO" + " does not match size"
-        
+
         #create output array
         output = []
         for _x in range(0, len(self.weights[0])):
@@ -32,7 +34,7 @@ class Layer:
     @classmethod
     @Decorators.inputlogger({"generator": (str), "seed": (NoneType, int, float, str, bytes, bytearray), "inp": (int, float, str), "out": (int, float, str)})
     def generate(cls, generator="basic", seed=0, inp=10, out=10):
-        
+
         #ensure that inp and out are both integers
         inp = int(inp)
         out = int(out)
