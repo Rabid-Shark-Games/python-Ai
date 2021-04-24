@@ -11,7 +11,7 @@ class System:
     def __init__(self):
         pass
 
-    @Decorators.inputlogger({"controller": (Controller.Controller, Controller.Controller()), "number": (int, str, float)})
+    @Decorators.inputlogger(inputs={"controller": (Controller.Controller, Controller.Controller()), "number": (int, str, float)})
     def addController(self, controller=Controller.Controller(), number=1):
         if type(controller) == type:
             for _x in range(0, number):

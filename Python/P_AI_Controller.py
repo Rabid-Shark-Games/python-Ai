@@ -9,7 +9,7 @@ class Controller:
     rng = random.Random()
     interation = 0
 
-    @Decorators.inputlogger({
+    @Decorators.inputlogger(inputs={
         "layertype": (
             Layer.Layer,
             Layer.Layer()
@@ -38,7 +38,7 @@ class Controller:
             for layer in range(0, len(layers) - 1):
                 self.layers.append(layertype.generate(seed=self.rng.random(), inp=layers[layer], out=layers[layer + 1]))
 
-    @Decorators.inputlogger({
+    @Decorators.inputlogger(inputs={
         "input": (list)
     })
     def check(self, input):
